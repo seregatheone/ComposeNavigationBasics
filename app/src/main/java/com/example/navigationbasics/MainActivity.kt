@@ -13,6 +13,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.navigationbasics.screens.DetailedExtenderForFirstScreen
+import com.example.navigationbasics.screens.FirstScreen
+import com.example.navigationbasics.screens.SecondScreen
+import com.example.navigationbasics.screens.ThirdScreen
 import com.example.navigationbasics.ui.theme.NavigationBasicsTheme
 
 class MainActivity : ComponentActivity() {
@@ -40,13 +44,15 @@ class MainActivity : ComponentActivity() {
                         }
                     }){
                         NavHost(navController = navController, startDestination = "first"){
-                            composable("first"){ Text("FirstScreen", modifier = Modifier.padding(20.dp)) }
-                            composable("second"){ Text("SecondScreen", modifier = Modifier.padding(20.dp)) }
-                            composable("third"){ Text("ThirdScreen", modifier = Modifier.padding(20.dp)) }
+                            composable("first"){ FirstScreen(navController) }
+                            composable("second"){ SecondScreen(navController) }
+                            composable("third"){ ThirdScreen() }
+                            composable("detailed/{word}"){ backStackEntry ->
+                                DetailedExtenderForFirstScreen(backStackEntry.arguments?.getString("word")!!)}
+                            }
                         }
                     }
                 }
             }
         }
     }
-}
